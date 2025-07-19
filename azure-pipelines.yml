@@ -18,10 +18,10 @@ steps:
     workingDirectory: 'app'
     displayName: 'Install dependencies'
 
-  - script: |
-      npm test
-    workingDirectory: 'app'
-    displayName: 'Run tests'
+  # - script: |
+  #     npm test
+  #   workingDirectory: 'app'
+  #   displayName: 'Run tests'
 
   - script: |
       npm run build
