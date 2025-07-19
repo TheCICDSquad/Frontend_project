@@ -1,37 +1,36 @@
 name: Dependency Vulnerability Check
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
+
 jobs:
   dependency-check:
     name: Dependency Vulnerability Check
-    runs-on:  Linux_runner
-    
-    steps:  
+    runs-on: Linux_runner
+
+    steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Node.js project (package-lock.json)
       - name: Check for Node.js project
-        id: node_detected
+        id: check_node
         run: |
           if [ -f "package-lock.json" ]; then
             echo "Node.js project detected."
-            echo "is_node=true" >> $GITHUB_ENV
+            echo "is_node=true" >> $GITHUB_OUTPUT
           else
             echo "No Node.js project found."
-            echo "is_node=false" >> $GITHUB_ENV
+            echo "is_node=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Running NPM Audit
-        if: env.is_node == 'true'
+      - name: Set up Node.js
+        if: steps.check_node.outputs.is_node == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+
+      - name: Run npm audit
+        if: steps.check_node.outputs.is_node == 'true'
         run: |
-          if [ -f "package-lock.json" ]; then
-            echo "Using npm for dependency checks"
-            npm install
-            npm audit --production --json
-          fi
-
-          
-          
-
+          npm install --production
+          npm audit --production
