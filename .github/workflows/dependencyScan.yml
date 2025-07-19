@@ -7,7 +7,7 @@ on:
 jobs:
   dependency-check:
     name: Dependency Vulnerability Check
-    runs-on: ubuntu-latest
+    runs-on:  Linux_runner
     
     steps:  
       - name: Checkout Code
