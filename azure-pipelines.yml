@@ -28,6 +28,11 @@ steps:
     workingDirectory: 'app'
     displayName: 'Build app'
 
+  - script: |
+      sudo apt-get update
+      sudo apt-get install zip -y
+    displayName: 'Install zip CLI'
+
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: '$(Build.SourcesDirectory)/app'
