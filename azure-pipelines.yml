@@ -29,9 +29,10 @@ steps:
     displayName: 'Build app'
 
   - script: |
-      sudo apt-get update
-      sudo apt-get install zip -y
+      apt-get update
+      apt-get install zip -y
     displayName: 'Install zip CLI'
+
 
   - task: ArchiveFiles@2
     inputs:
